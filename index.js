@@ -27,7 +27,7 @@ function renderMovieList(data) {
             <div class="card-footer">
               <button class="btn btn-primary btn-show-movie" data-toggle="modal"
                 data-target="#movie-modal" data-id="${item.id}">More</button>
-              <button class="btn btn-info btn-add-favorite">+</button>
+              <button class="btn btn-info btn-add-favorite" data-id="${item.id}">+</button>
             </div>
           </div>
         </div>
@@ -53,10 +53,25 @@ function showMovieModal(id) {
   })
 }
 
+function addToFavorite(id) {
+  const list = JSON.parse(localStorage.getItem('favoriteMovies')) || []
+  const movie = movies.find(movie => movie.id === id)
+
+  if (list.some((movie) => movie.id === id)) {
+    return alert('This movie is already in Favorite!')
+  }
+
+  list.push(movie)
+
+  localStorage.setItem('favoriteMovies', JSON.stringify(list))
+}
+
 dataPanel.addEventListener('click', function onPanelClicked(event) {
   if (event.target.matches('.btn-show-movie')) {
     // console.log(event.target.dataset)
     showMovieModal(Number(event.target.dataset.id))
+  } else if (event.target.matches('.btn-add-favorite')) {
+    addToFavorite(Number(event.target.dataset.id))
   }
 })
 
