@@ -5,15 +5,12 @@ const POSTER_URL = BASE_URL + '/posters/'
 const movies = JSON.parse(localStorage.getItem('favoriteMovies'))
 
 const dataPanel = document.querySelector('#data-panel')
-const searchForm = document.querySelector('#search-form')
-const searchInput = document.querySelector('#search-input')
 
 function renderMovieList(data) {
   let rawHTML = ''
 
   data.forEach((item) => {
-    // title, image
-    // console.log(item)
+    // title, image, id
     rawHTML += `
       <div class="col-sm-3">
         <div class="mb-2">
